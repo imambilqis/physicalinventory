@@ -12,8 +12,10 @@ class CountScreen extends StatefulWidget {
 }
 
 class _CountScreenState extends State<CountScreen> {
+
   String barcode = "";
   bool isEdit = false;
+  bool isSearching = false;
   IconData iconChange = Icons.edit;
   List<bool> isEdits = [];
   List<IconData> iconChanges = [];
@@ -44,6 +46,7 @@ class _CountScreenState extends State<CountScreen> {
   List<TextEditingController> _controllers = [];
   List<int> quantity = [];
 
+
   @override
   void initState() {
     super.initState();
@@ -52,23 +55,38 @@ class _CountScreenState extends State<CountScreen> {
       _controllers[i].text = '0';
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Physical Inventory".toUpperCase(),
-          textAlign: TextAlign.center,
+        title: !isSearching ? Text('Physical Inventory')
+            : TextField(  style: TextStyle(color: Colors.white), decoration:
+              InputDecoration(icon: Icon(Icons.search,color: Colors.white,),
+            hintText: 'Search Here...',
+            hintStyle: TextStyle(color: Colors.white)
+        ),
         ),
         actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: IconButton(
-                  onPressed: (){},
+          isSearching ?
+              IconButton(
+                  onPressed: (){
+                    setState(() {
+                      this.isSearching =false;
+                    });
+                  },
                   icon: Icon(
-                    Icons.search,
-                  ))),
+                    Icons.cancel,
+                  )
+              ):IconButton(
+              onPressed: (){
+                setState(() {
+                  this.isSearching =true;
+                });
+              },
+              icon: Icon(
+                Icons.search,
+              )
+          ),
           Padding(
               padding: EdgeInsets.only(right: 10.0),
               child: IconButton(
@@ -77,7 +95,9 @@ class _CountScreenState extends State<CountScreen> {
                     Icons.settings_overscan,
                   )))
         ],
+        backgroundColor: Color(0xFF61A4F1),
       ),
+
       body: ListView.builder(
           itemCount: isproduk.length,
           itemBuilder: (context, index) {
@@ -89,7 +109,7 @@ class _CountScreenState extends State<CountScreen> {
                 Expanded(
                   flex: 4,
                   child: ListTile(
-                    title: Text(isproduk[index]),
+                    title: Text(isproduk[index] ),
                     subtitle: Text(isqr[index]),
                   ),
                 ),
