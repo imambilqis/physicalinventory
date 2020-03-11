@@ -98,7 +98,11 @@ class _CountScreenState extends State<CountScreen> {
                   child: ListTile(
                     title: FlatButton(
                         padding: EdgeInsets.all(0.5),
-                        onPressed: (){},
+                        onPressed: (){
+                          setState(() {
+                            _controllers[index].text != '0' ? _controllers[index].text = '${int.parse(_controllers[index].text)- 1}' : null;  
+                          });
+                          },
                         child: Icon(
                           Icons.remove,size: 24,
                         )),
@@ -130,9 +134,9 @@ class _CountScreenState extends State<CountScreen> {
                         padding: EdgeInsets.all(0.5),
                         onPressed: (){
                           setState(() {
-
+                            _controllers[index].text = '${int.parse(_controllers[index].text)+1}';
                           });
-                        },
+                          },
                         child: Icon(
                             Icons.add
                         )),
