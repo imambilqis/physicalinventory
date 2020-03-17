@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:physicalinventory/screen/count_screen.dart';
 
-
 class CreateScreen extends StatefulWidget {
   static const id = 'CreateScreen';
 
@@ -9,10 +8,15 @@ class CreateScreen extends StatefulWidget {
 }
 
 class _CreateScreenState extends State<CreateScreen> {
+  DateTime pickDate;
+
   Widget _buildNoTF() {
     return Container(
       margin: EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width / 1.2,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 1.2,
       height: 40,
       padding: EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 4),
       decoration: BoxDecoration(
@@ -30,7 +34,10 @@ class _CreateScreenState extends State<CreateScreen> {
   Widget _buildDateTF() {
     return Container(
       margin: EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width / 1.2,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 1.2,
       height: 40,
       padding: EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 4),
       decoration: BoxDecoration(
@@ -39,8 +46,9 @@ class _CreateScreenState extends State<CreateScreen> {
           boxShadow: [BoxShadow(color: Colors.lightBlue, blurRadius: 5)]),
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Movement Date',
+          hintText: ("Movement Date : ${pickDate.day}/${pickDate.month}/${pickDate.year}"),
         ),
+        onTap: _pickDate,
       ),
     );
   }
@@ -48,7 +56,10 @@ class _CreateScreenState extends State<CreateScreen> {
   Widget _buildDescTF() {
     return Container(
       margin: EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width / 1.2,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 1.2,
       height: 40,
       padding: EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 4),
       decoration: BoxDecoration(
@@ -63,6 +74,14 @@ class _CreateScreenState extends State<CreateScreen> {
     );
   }
 
+  String _value, _value2, _value3;
+
+  @override
+  void initState() {
+    super.initState();
+    pickDate = DateTime.now();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -71,20 +90,20 @@ class _CreateScreenState extends State<CreateScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
                 gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-              Color(0xFF73AEF5),
-              Color(0xFF61A4F1),
-              Color(0xFF478DE0),
-              Color(0xFF398AE5),
-            ])),
+                  Color(0xFF73AEF5),
+                  Color(0xFF61A4F1),
+                  Color(0xFF478DE0),
+                  Color(0xFF398AE5),
+                ])),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-                    Widget>[
-                  SizedBox(
-                 height: 20,
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+                Widget>[
+              SizedBox(
+                height: 20,
               ),
-                Padding(
-                 padding: EdgeInsets.all(30),
-                  child: Column(
+              Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
                   children: <Widget>[
                     Text(
                       'Physical Inventory'.toUpperCase(),
@@ -126,13 +145,16 @@ class _CreateScreenState extends State<CreateScreen> {
                               //DOC TYPE
                               Container(
                                 margin: EdgeInsets.only(top: 30),
-                                width: MediaQuery.of(context).size.width / 1.2,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 1.2,
                                 height: 40,
                                 padding: EdgeInsets.only(
                                     top: 4, left: 16, right: 16, bottom: 4),
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(10)),
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
@@ -140,38 +162,91 @@ class _CreateScreenState extends State<CreateScreen> {
                                           blurRadius: 5)
                                     ]),
                                 child: new Center(
-                                  child: new DropdownButton(
-                                    isExpanded: true,
-                                    hint: Text("Document Type"),
-                                    onChanged: (newVal) {
-                                      setState(() {});
+                                  child: DropdownButton<String>(
+                                    items: [
+                                      DropdownMenuItem(
+                                        child: Text('Physical Inventory'),
+                                        value: 'Physical Inventory',)
+                                    ],
+                                    onChanged: (String value) {
+                                      setState(() {
+                                        _value = value;
+                                      });
                                     },
+                                    isExpanded: true,
+                                    hint: Text('Document Type'),
+                                    value: _value,
                                   ),
                                 ),
                               ),
                               //WH
                               Container(
                                 margin: EdgeInsets.only(top: 30),
-                                width: MediaQuery.of(context).size.width / 1.2,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 1.2,
                                 height: 40,
                                 padding: EdgeInsets.only(
                                     top: 4, left: 16, right: 16, bottom: 4),
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(10)),
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                          color: Colors.lightBlue,
+                                          color: Color(0xFF61A4F1),
                                           blurRadius: 5)
                                     ]),
                                 child: new Center(
-                                  child: new DropdownButton(
+                                  child: new DropdownButton<String>(
+                                    items: [
+                                      DropdownMenuItem(child: Text('Standard'),
+                                        value: 'Standard',)
+                                    ],
+                                    onChanged: (String value) {
+                                      setState(() {
+                                        _value2 = value;
+                                      });
+                                    },
                                     isExpanded: true,
                                     hint: Text("Warehouse"),
-                                    onChanged: (newVal) {
-                                      setState(() {});
+                                    value: _value2,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 30),
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 1.2,
+                                height: 40,
+                                padding: EdgeInsets.only(
+                                    top: 4, left: 16, right: 16, bottom: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Color(0xFF61A4F1),
+                                          blurRadius: 5)
+                                    ]),
+                                child: new Center(
+                                  child: new DropdownButton<String>(
+                                    items: [
+                                      DropdownMenuItem(child: Text('Standard'),
+                                        value: 'Standard',)
+                                    ],
+                                    onChanged: (String value) {
+                                      setState(() {
+                                        _value3 = value;
+                                      });
                                     },
+                                    isExpanded: true,
+                                    hint: Text("Locator"),
+                                    value: _value3,
                                   ),
                                 ),
                               ),
@@ -180,13 +255,17 @@ class _CreateScreenState extends State<CreateScreen> {
                               //Description
                               _buildDescTF(),
                               //button
+
                               Container(
                                 height: 40,
                                 margin: EdgeInsets.only(top: 40, bottom: 220),
-                                width: MediaQuery.of(context).size.width / 1.2,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 1.2,
                                 child: new Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       new RaisedButton(
                                         color: Colors.lightBlueAccent,
@@ -210,15 +289,36 @@ class _CreateScreenState extends State<CreateScreen> {
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w700),
                                         ),
-                                        onPressed: () {Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => CountScreen()),
-                                        );},
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CountScreen()),
+                                          );
+                                        },
                                       ),
                                     ]),
                               )
                             ]),
                           ))))
             ])));
+  }
+
+  _pickDate() async {
+    DateTime date = await showDatePicker(
+        context: context,
+        firstDate: DateTime(DateTime
+            .now()
+            .year - 5),
+        lastDate: DateTime(DateTime
+            .now()
+            .year + 5),
+        initialDate: pickDate
+    );
+    if (date != null)
+      setState(() {
+        pickDate = date;
+      });
   }
 }

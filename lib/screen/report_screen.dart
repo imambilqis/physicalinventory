@@ -19,6 +19,7 @@ class _ReportScreenState extends State<ReportScreen>{
       appBar: AppBar(
         title: Text("Physical Inventory".toUpperCase(),
           textAlign: TextAlign.center,),
+        backgroundColor: Color(0xFF61A4F1),
       ),
 
       body: ListView.builder(

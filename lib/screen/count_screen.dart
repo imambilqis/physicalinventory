@@ -98,7 +98,9 @@ class _CountScreenState extends State<CountScreen> {
         backgroundColor: Color(0xFF61A4F1),
       ),
 
-      body: ListView.builder(
+      body:
+
+      ListView.builder(
           itemCount: isproduk.length,
           itemBuilder: (context, index) {
             isEdits.add(false);
@@ -197,7 +199,7 @@ class _CountScreenState extends State<CountScreen> {
             ),
           );
         },
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Color(0xFF61A4F1),
       ),
 
     );
